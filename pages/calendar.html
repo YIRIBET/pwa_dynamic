@@ -3,18 +3,17 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Calendar - Gestor PWA</title>
 
-    <!-- Tus estilos personalizados -->
-    <link rel="stylesheet" href="./estilos.css">
-    
+    <!-- Estilos -->
+    <link rel="stylesheet" href="../estilos.css">
 </head>
 <body>
     <nav>
         <ul>
-            <li><a href="index.html">Home</a></li>
-            <li><a href="pages/calendar.html">Calendar</a></li>
-            <li><a href="pages/forms.html">Forms</a></li>
+            <li><a href="../index.html">Home</a></li>
+            <li><a href="./calendar.html">Calendar</a></li>
+            <li><a href="./forms.html">Forms</a></li>
         </ul>
     </nav>
 
@@ -24,8 +23,7 @@
     </main>
 
     <script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.19/index.global.min.js"></script>
-    
-    <!-- Inicialización del calendario -->
+
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             var calendarEl = document.getElementById('calendar');
@@ -49,7 +47,6 @@
         });
     </script>
 
-    <!-- Tu JavaScript principal -->
-    <script src="./main.js"></script>
+    <script src="../main.js"></script>
 </body>
 </html>
