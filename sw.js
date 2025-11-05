@@ -2,14 +2,14 @@ const CACHE_NAME = 'app-shell-v1';
 const DYNAMIC_CACHE = 'dynamic-cache-v1';
 
 const ASSETS_APP_SHELL = [
-    './',
-    './index.html',
-    './main.js',
-    './manifest.json',
-    './pages/calendar.html',
-    './pages/forms.html',
-    './css/estilos.css',
-    './images/icons/180.png'
+    './pwa_dynamic/',
+    './pwa_dynamic/index.html',
+    './pwa_dynamic/main.js',
+    './pwa_dynamic/manifest.json',
+    './pwa_dynamic/pages/calendar.html',
+    './pwa_dynamic/pages/forms.html',
+    './pwa_dynamic/css/estilos.css',
+    './pwa_dynamic/images/icons/180.png'
 ];
 
 // Instalación - Solo cachea TUS archivos
