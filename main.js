@@ -1,7 +1,7 @@
 if ('serviceWorker' in navigator) {
   window.addEventListener('load', () => {
     navigator.serviceWorker
-      .register('./sw.js')
+      .register('/pwa_dynamic/sw.js')
       .then(reg => {
         console.log('SW registrado:', reg);
       })
