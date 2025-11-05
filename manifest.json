@@ -1,0 +1,16 @@
+{
+  "name": "Mi PWA de Gestión de Tareas",
+  "short_name": "Gestor PWA", 
+  "start_url": "/pwa/",
+  "display": "standalone", 
+  "background_color": "#8321f3",
+  "theme_color": "#c593f5",
+  "description": "Una aplicación para gestionar tus tareas diarias, funciona offline.",
+  "icons": [
+    {
+      "src": "./image/icons/180.png",
+      "sizes": "180x180",
+      "type": "image/png"
+    }
+  ]
+}

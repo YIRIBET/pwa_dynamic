@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+ <link rel="stylesheet" href="/estilos.css">  
+    
+    <!-- jQuery (requerido para Select2) -->
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.7.1/dist/jquery.min.js"></script>
+    
+    <!-- Select2 CSS desde CDN (se cacheará dinámicamente) -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css">
+</head>
+<body>
+    <nav>
+        <ul>
+            <li><a href="/index.html">Home</a></li>
+            <li><a href="/pages/calendar.html">Calendar</a></li>
+            <li><a href="/pages/forms.html">Forms</a></li>
+        </ul>
+    </nav>
+
+    <main>
+        <h1>Select2</h1>
+        
+        <form id="myForm">
+            <div class="form-group">
+                <label for="country">Selecciona un país:</label>
+                <select id="country" class="js-select2" style="width: 100%">
+                    <option value="">Seleccione...</option>
+                    <option value="mx">México</option>
+                    <option value="us">Estados Unidos</option>
+                    <option value="ca">Canadá</option>
+                    <option value="es">España</option>
+                    <option value="ar">Argentina</option>
+                    <option value="co">Colombia</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="cities">Selecciona ciudades (múltiple):</label>
+                <select id="cities" class="js-select2" multiple style="width: 100%">
+                    <option value="cdmx">Ciudad de México</option>
+                    <option value="gdl">Guadalajara</option>
+                    <option value="mty">Monterrey</option>
+                    <option value="cancun">Cancún</option>
+                    <option value="puebla">Puebla</option>
+                </select>
+            </div>
+
+            <button type="submit">Enviar</button>
+        </form>
+    </main>
+
+  
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+    
+    <!-- Inicialización de Select2 -->
+    <script>
+        $(document).ready(function() {
+            // Inicializar Select2
+            $('.js-select2').select2({
+                placeholder: 'Seleccione una opción',
+                allowClear: true,
+                language: {
+                    noResults: function() {
+                        return "No se encontraron resultados";
+                    },
+                    searching: function() {
+                        return "Buscando...";
+                    }
+                }
+            });
+        });
+            
+    </script>
+
+    <!-- Tu JavaScript principal -->
+    <script src="/main.js"></script>
+</body>
+</html>
