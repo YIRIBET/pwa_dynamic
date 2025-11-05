@@ -2,6 +2,7 @@
   "name": "Mi PWA de Gestión de Tareas",
   "short_name": "Gestor PWA", 
   "start_url": "/pwa_dynamic/",
+  "scope": "/pwa_dynamic/",
   "display": "standalone", 
   "background_color": "#8321f3",
   "theme_color": "#c593f5",
