@@ -8,11 +8,11 @@ const ASSETS_APP_SHELL = [
     '/pwa_dynamic/manifest.json',
     '/pwa_dynamic/pages/calendar.html',
     '/pwa_dynamic/pages/forms.html',
-    '/pwa_dynamic/css/estilos.css',
+    '/pwa_dynamic/estilos.css',
     '/pwa_dynamic/images/icons/180.png'
 ];
 
-// Instalación - Solo cachea TUS archivos
+// Instalación - Cachea archivos locales
 self.addEventListener('install', event => {
     console.log('Service Worker: Instalando...');
     event.waitUntil(
@@ -55,39 +55,44 @@ self.addEventListener('fetch', event => {
                           url.origin.includes('cdnjs.cloudflare.com');
     
     if (isExternalCDN) {
-        // NETWORK FIRST para CDN (FullCalendar, Select2, jQuery, etc.)
-        console.log('CDN:', url.pathname);
+        // NETWORK FIRST para CDN
+        console.log('🌐 CDN detectado:', url.href);
         event.respondWith(
             fetch(event.request)
                 .then(networkResponse => {
-                    // Cachea dinámicamente en DYNAMIC_CACHE
-                    if (networkResponse.status === 200) {
+                    // Verifica que sea una respuesta válida
+                    if (networkResponse && networkResponse.status === 200) {
+                        // Clona la respuesta antes de cachear
+                        const responseToCache = networkResponse.clone();
+                        
                         caches.open(DYNAMIC_CACHE).then(cache => {
-                            console.log('Cacheando CDN:', url.pathname);
-                            cache.put(event.request, networkResponse.clone());
+                            console.log(' Cacheando CDN:', url.href);
+                            cache.put(event.request, responseToCache);
                         });
                     }
                     return networkResponse;
                 })
-                .catch(() => {
-                    // Si no hay internet, usa caché
-                    console.log('Usando caché CDN (offline):', url.pathname);
+                .catch(error => {
+                    // Si falla la red, busca en caché
+                    console.log(' Usando caché CDN (offline):', url.href);
                     return caches.match(event.request)
                         .then(cacheResponse => {
                             if (cacheResponse) {
+                                console.log(' CDN encontrado en caché');
                                 return cacheResponse;
                             }
                             // Si no está en caché, retorna error
+                            console.log(' CDN no disponible offline');
                             return new Response('Recurso no disponible offline', {
                                 status: 503,
-                                statusText: 'Service Unavailable'
+                                statusText: 'Service Unavailable',
+                                headers: { 'Content-Type': 'text/plain' }
                             });
                         });
                 })
         );
     } else {
-        // CACHE FIRST para archivos locales (App Shell)
-        console.log('Local:', url.pathname);
+        // CACHE FIRST para archivos locales
         event.respondWith(
             caches.match(event.request)
                 .then(cacheResponse => {
@@ -96,11 +101,21 @@ self.addEventListener('fetch', event => {
                     }
                     // Si no está en caché, intenta la red
                     return fetch(event.request)
+                        .then(networkResponse => {
+                            // Cachea dinámicamente recursos locales nuevos
+                            if (networkResponse && networkResponse.status === 200) {
+                                const responseToCache = networkResponse.clone();
+                                caches.open(DYNAMIC_CACHE).then(cache => {
+                                    cache.put(event.request, responseToCache);
+                                });
+                            }
+                            return networkResponse;
+                        })
                         .catch(error => {
                             console.error('Error:', url.pathname, error);
                             // Fallback para navegación HTML
                             if (event.request.destination === 'document') {
-                                return caches.match('/index.html');
+                                return caches.match('/pwa_dynamic/index.html');
                             }
                         });
                 })
